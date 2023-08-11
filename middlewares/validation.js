@@ -25,23 +25,23 @@ const updateUserValidator = celebrate({
 
 const createMovieValidator = celebrate({
   body: Joi.object().keys({
-    country: Joi.string().required().min(2).max(30),
-    director: Joi.string().required().min(2).max(30),
-    duration: Joi.number().required().min(1).max(30),
-    year: Joi.string().required().min(4).max(10),
-    description: Joi.string().required().min(2).max(100),
+    country: Joi.string().required().min(2).max(100),
+    director: Joi.string().required().min(2).max(100),
+    duration: Joi.number().required().min(1).max(9999),
+    year: Joi.string().required().min(4).max(30),
+    description: Joi.string().required().min(2).max(300),
     image: Joi.string().required().regex(validateUrl),
     trailerLink: Joi.string().required().regex(validateUrl),
     thumbnail: Joi.string().required().regex(validateUrl),
     movieId: Joi.number().required(),
-    nameRU: Joi.string().required().min(2).max(30),
-    nameEN: Joi.string().required().min(2).max(30),
+    nameRU: Joi.string().required().min(2).max(100),
+    nameEN: Joi.string().required().min(2).max(100),
   }),
 });
 
 const deleteMovieValidator = celebrate({
   params: Joi.object().keys({
-    id: Joi.string().required().hex().length(24),
+    _id: Joi.string().required().hex().length(24),
   }),
 });
 
