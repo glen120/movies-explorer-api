@@ -5,9 +5,12 @@ const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenError = require('../errors/ForbiddenError');
 const ConflictError = require('../errors/ConflictError');
 
-const getMovies = (req, res, next) => Movie.find({})
-  .then((movies) => res.status(code.ok).send(movies))
-  .catch(next);
+const getMovies = (req, res, next) => {
+  const owner = req.user._id;
+  return Movie.find({ owner })
+    .then((movies) => res.status(code.ok).send(movies))
+    .catch(next);
+};
 
 const createMovie = (req, res, next) => {
   const ownerId = req.user._id;

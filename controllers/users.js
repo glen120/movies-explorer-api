@@ -35,7 +35,9 @@ const updateUserInfo = (req, res, next) => {
       }
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
+      if (err.code === 11000) {
+        return next(new ConflictError('Пользователь с такой почтой уже зарегистрирован'));
+      } if (err.name === 'ValidationError') {
         return next(new BadRequestError('Произошла ошибка при обновлении профиля'));
       }
       return next(err);
