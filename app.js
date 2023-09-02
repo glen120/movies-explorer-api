@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const router = require('./routes/index');
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { urls } = require('./utils/urls');
 
 const app = express();
 
@@ -29,7 +30,7 @@ mongoose
 
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({ origin: urls, credentials: true }));
 
 app.use(requestLogger);
 
