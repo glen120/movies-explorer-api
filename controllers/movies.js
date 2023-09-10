@@ -3,7 +3,6 @@ const code = require('../utils/codes');
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenError = require('../errors/ForbiddenError');
-const ConflictError = require('../errors/ConflictError');
 
 const getMovies = (req, res, next) => {
   const owner = req.user._id;
@@ -43,9 +42,7 @@ const createMovie = (req, res, next) => {
   })
     .then((newMovie) => res.status(code.created).send(newMovie))
     .catch((err) => {
-      if (err.code === 11000) {
-        return next(new ConflictError('Такой фильм уже зарегистрирован'));
-      } if (err.name === 'ValidationError') {
+      if (err.name === 'ValidationError') {
         return next(new BadRequestError('Произошла ошибка при создании фильма'));
       }
       return next(err);
